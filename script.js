@@ -1,22 +1,24 @@
-// Get user name and display greeting
+// -- Constants -- //
 let userName = prompt("What is your name?");
-
 let greeting = document.getElementById("greeting");
 let responseImg = document.getElementById("response-img");
-let responseText = document.getElementById("response-text");
+let responseText = document.getElementById("response-overlay");
 let questionText = document.getElementById("question-text");
-let imageChoice = "";
-// if no name given then just default to "Hello!"
+
+// -- Functions -- //
 greeting.innerHTML = userName ? `Hello, ${userName}!` : "Hello!";
 
 function shakeMagic8Ball() {
+	// -- Get the user's question -- //
 	let userQuestion = prompt("What is your question?");
 
-	// DO NOT TOUCH THIS CODE
+	// -- Generate a random number between 0 and 7 -- //
 	let randomNumber = Math.floor(Math.random() * 8);
 
+	// -- Initialize the response -- //
 	let eightBall = "";
 
+	// -- Switch statement to determine the response -- //
 	switch (randomNumber) {
 		case 0:
 			eightBall = "It is certain";
@@ -25,7 +27,7 @@ function shakeMagic8Ball() {
 			eightBall = "It is decidedly so";
 			break;
 		case 2:
-			eightBall = "Reply hazy try again";
+			eightBall = "Reply hazy, try again";
 			break;
 		case 3:
 			eightBall = "Cannot predict now";
@@ -44,17 +46,26 @@ function shakeMagic8Ball() {
 			break;
 	}
 
+	// -- Log the response (for debugging) -- //
 	console.log(`The Magic Eight Ball says: ${eightBall}`);
 
+	// -- Display the question -- //
 	questionText.innerHTML = `${
 		userName ? userName + " asks: " : ""
-	}${userQuestion}`;
-	responseText.innerHTML = `The Magic Eight Ball says: ${eightBall}`;
+	}"${userQuestion}"`;
+
+	// -- Display the response -- //
+	responseText.innerHTML = `${eightBall}`;
+	responseText.classList.add("show");
+
+	// -- Shake the Magic 8 Ball -- //
+	responseImg.classList.add("shake");
+	setTimeout(() => {
+		responseImg.classList.remove("shake");
+	}, 700);
+
+	// -- Hide the response -- //
+	setTimeout(() => {
+		responseText.classList.remove("show");
+	}, 5000);
 }
-
-// Add the image to the responseImg element
-responseImg.src = imageChoice;
-
-
-
-shakeMagic8Ball();
