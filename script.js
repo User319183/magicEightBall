@@ -2,7 +2,6 @@
 let userName = prompt("What is your name?");
 let greeting = document.getElementById("greeting");
 let responseImg = document.getElementById("response-img");
-let responseText = document.getElementById("response-overlay");
 let questionText = document.getElementById("question-text");
 
 // -- Functions -- //
@@ -16,56 +15,51 @@ function shakeMagic8Ball() {
 	let randomNumber = Math.floor(Math.random() * 8);
 
 	// -- Initialize the response -- //
-	let eightBall = "";
+	let imagePath = "";
 
-	// -- Switch statement to determine the response -- //
+	// -- Switch statement to determine the image path -- //
 	switch (randomNumber) {
 		case 0:
-			eightBall = "It is certain";
+			imagePath = "images/ITISCERTAIN.gif";
 			break;
 		case 1:
-			eightBall = "It is decidedly so";
+			imagePath = "images/ITISDECIDEDLYSO.gif";
 			break;
 		case 2:
-			eightBall = "Reply hazy, try again";
+			imagePath = "images/REPLYHAZY.gif";
 			break;
 		case 3:
-			eightBall = "Cannot predict now";
+			imagePath = "images/ASKAGAINLATER.gif";
 			break;
 		case 4:
-			eightBall = "Do not count on it";
+			imagePath = "images/DONTCOUNTONIT.gif";
 			break;
 		case 5:
-			eightBall = "My sources say no";
+			imagePath = "images/MYSOURCESSAYNO.gif";
 			break;
 		case 6:
-			eightBall = "Outlook not so good";
+			imagePath = "images/ASISEEITYES.gif";
 			break;
 		case 7:
-			eightBall = "Signs point to yes";
+			imagePath = "images/YES.gif";
 			break;
 	}
 
 	// -- Log the response (for debugging) -- //
-	console.log(`The Magic Eight Ball says: ${eightBall}`);
+	console.log(`The Magic Eight Ball image path: ${imagePath}`);
 
 	// -- Display the question -- //
 	questionText.innerHTML = `${
 		userName ? userName + " asks: " : ""
 	}"${userQuestion}"`;
 
-	// -- Display the response -- //
-	responseText.innerHTML = `${eightBall}`;
-	responseText.classList.add("show");
-
-	// -- Shake the Magic 8 Ball -- //
+	// -- Change the image source -- //
+	responseImg.src = imagePath;
 	responseImg.classList.add("shake");
 	setTimeout(() => {
 		responseImg.classList.remove("shake");
 	}, 700);
-
-	// -- Hide the response -- //
-	setTimeout(() => {
-		responseText.classList.remove("show");
-	}, 5000);
 }
+
+// -- Set default image for the Magic 8 Ball -- //
+responseImg.src = "images/default.jpeg";
